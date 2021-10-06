@@ -3,6 +3,7 @@
  * The following program is a basic Video Game Character data tracker.
  * <p>
  * It can take is multiple @param including the Name, Max Health, and Remaining Health
+ * NOTE: THIS GOES WITH THE MORE EFFICIENT AND CLEANER VIDEO GAME CHAR HEALTH DRIVER
  * </p>
  * @version 0.2.7
  * @author Robert Bayer
@@ -15,6 +16,9 @@ public class VideoGameChar {
     private double MaximumHealth;
     private double RemainingHealth;
     private int Level = 0;
+    private String Operator;
+    private double Modifier;
+    private int Iterations;
 
     /**
      * Empty Constructor
@@ -23,15 +27,23 @@ public class VideoGameChar {
         Name = "";
         MaximumHealth = 0.0;
         RemainingHealth = 0.0;
+        Level = 0;
+        Operator = "";
+        Modifier = 0.0;
+        Iterations = 0;
+
     }
 
     /**
      * Constructor with all variables
      */
-    public VideoGameChar(String Name, double MaxHealth, double RemainingHealth) {
+    public VideoGameChar(String Name, double MaxHealth, double RemainingHealth, String Operator, double Modifier, int Iterations) {
         this.Name = Name;
         MaximumHealth = MaxHealth;
         this.RemainingHealth = RemainingHealth;
+        this.Operator = Operator;
+        this.Modifier = Modifier;
+        this.Iterations = Iterations;
     }
 
     /**
@@ -86,10 +98,47 @@ public class VideoGameChar {
      * Calculates and Returns the Percentage Health Remaining
      * @return The Percentage of Maximum Health that is Remaining
      */
-    public double getHealthPercentage() {
-        //System.out.println("Calculating Percentage...");
-        return Math.round(((getRemainingHealth() / getMaxHealth()) * 100) * 10.0) / 10.0;
+    public double getHealthPercentage() { return Math.round(((getRemainingHealth() / getMaxHealth()) * 100) * 10.0) / 10.0; }
+
+    /**
+     * Accessor to the "Operator" field.
+     * @return The operator entered
+     */
+    public String getOperator(){
+        return Operator;
     }
+
+    /**
+     * Mutator for the "Operator" field
+     * @param Operator is the entered operator
+     */
+    public void setOperator(String Operator){
+        this.Operator = Operator;
+    }
+
+    /**
+     * Mutator for the "Modifier" field
+     * @param Modifier Amount added or subtracted
+     */
+    public void setModifier(double Modifier) { this.Modifier = Modifier; }
+
+    /**
+     * Accessor for the "Modifier" field
+     * @return The amount of health being added or subtracted
+     */
+    public double getModifier() { return Modifier; }
+
+    /**
+     * Accessor for the "Iterations" field
+     * @return The amount of iterations wanted
+     */
+    public int getIterations() { return Iterations; }
+
+    /**
+     * Mutator for the "Iterations field
+     * @param Iterations Number of times added or subtracted
+     */
+    public void setIterations(int Iterations) { this.Iterations = Iterations; }
 
     //The Following Code Will Calculate and Return all relevant data to the Character.
 
@@ -97,11 +146,7 @@ public class VideoGameChar {
      * Displays all relevant data of the character
      * @return A String of all pertinent information
      */
-    public String toString() {
-        return Name + ": " + Math.round(getRemainingHealth() * 10.0) / 10.0 + " out of " + Math.round(getMaxHealth() * 10.0) / 10.0 + " health or " + getHealthPercentage() + "%";
-
-
-    }
+    public String toString() { return Name + ": " + Math.round(getRemainingHealth() * 10.0) / 10.0 + " out of " + Math.round(getMaxHealth() * 10.0) / 10.0 + " health or " + getHealthPercentage() + "%"; }
 
     /**
      * Custom method setting the level of the character
@@ -120,97 +165,32 @@ public class VideoGameChar {
     }
 
     /**
-     * A method to test if the given unit is suitable to be made the Max Health
-     * @param TestUnit Unit that has been proposed to be the maximum health
-     * @return true if the proposed max health is greater than 0.0
-     */
-    public boolean testMaxHealth(double TestUnit){
-        return TestUnit > 0.0;
-    }
-
-    /**
-     * A method to test if the given unit is between 0.0 and Maximum Health, used in both setting remaining health and modifying
-     * @param TestUnit Unit that is being proposed to be used to set Remaining Health of modify it
-     * @return true if unit is between 0.0 and Maximum Health
-     */
-    public boolean testRemainingHealth(double TestUnit){
-        return TestUnit >= 0.0 && TestUnit <= getMaxHealth();
-    }
-
-    /**
-     * A method to test if the requested change is legal
-     * @param TestOperator the requested change
-     * @return true if the requested change is to add or subtract health to/from the remaining health
-     */
-    public boolean testOperator(String TestOperator){
-        return TestOperator.equals("add") || TestOperator.equals("sub");
-    }
-
-    /**
-     * A method to test if the requested amount of iterations is legal
-     * @param TestUnit The amount of requested iterations
-     * @return true if the amount of requested iterations are between 1 and 10 (inclusive)
-     */
-    public boolean testIteration(int TestUnit){
-        return TestUnit <= 10 && TestUnit > 0;
-    }
-
-    /**
      * States a phrase describing the amount of health left using the percentage
-     * @param HealthPercentage The percentage of health remaining
      * @return The respective phrase depending on the percentage
      */
-    public String getHealthPhrase(double HealthPercentage){
-        if(HealthPercentage == 0.0){
-            return "Health all gone";
-        }
-        else if(HealthPercentage > 0.0 && HealthPercentage <= 25.0){
-            return "Health almost gone (" + getHealthPercentage() + "%)";
-        }
-        else if(HealthPercentage > 25.0 && HealthPercentage <= 50.0){
-            return "More than a quarter health remaining (" + getHealthPercentage() + "%)";
-        }
-        else if(HealthPercentage > 50.0 && HealthPercentage < 100.0){
-            return "More than half health remaining (" + getHealthPercentage() + "%)";
-        }
-        else{
-            return "Full health remaining";
-        }
+    public String getHealthPhrase(){
+        if(getHealthPercentage() == 0.0){ return "Health all gone"; }
+        else if(getHealthPercentage() > 0.0 && getHealthPercentage() <= 25.0){ return "Health almost gone (" + getHealthPercentage() + "%)"; }
+        else if(getHealthPercentage() > 25.0 && getHealthPercentage() <= 50.0){ return "More than a quarter health remaining (" + getHealthPercentage() + "%)"; }
+        else if(getHealthPercentage() > 50.0 && getHealthPercentage() < 100.0){ return "More than half health remaining (" + getHealthPercentage() + "%)"; }
+        else{ return "Full health remaining"; }
     }
 
     /**
      * A method to increase the health by a given amount by a given amount of times
      * @param healthModifier the amount that will be added per iteration
-     * @param iterations the amount of times that the amount will be added
      */
-    public void increaseHealth(double healthModifier, int iterations){
-        for(int i = 0; i < iterations; i++){
-            System.out.println("Iteration " + (i+1));
-            if(getRemainingHealth() + healthModifier <= getMaxHealth()) {
-                RemainingHealth += healthModifier;
-            }
-            else{
-                setRemainingHealth(getMaxHealth());
-            }
-            System.out.println(getHealthPhrase(getHealthPercentage()));
-        }
+    public void increaseHealth(double healthModifier){
+        if(RemainingHealth + healthModifier < getMaxHealth()) { RemainingHealth += healthModifier; }
+        else{ setRemainingHealth(MaximumHealth); }
     }
 
     /**
      * A method to decrease a given amount of health a given amount of times.
      * @param healthModifier the amount that will be subtracted per iteration
-     * @param iterations the amount of times that the amount will be subtracted
      */
-    public void decreaseHealth(double healthModifier, int iterations){
-        for(int i = 0; i < iterations; i++){
-            System.out.println("Iteration " + (i+1));
-            if(getRemainingHealth() - healthModifier >= 0) {
-                RemainingHealth -= healthModifier;
-            }
-            else {
-                setRemainingHealth(0.0);
-            }
-            System.out.println(getHealthPhrase(getHealthPercentage()));
-        }
+    public void decreaseHealth(double healthModifier){
+        if(RemainingHealth - healthModifier > 0) { RemainingHealth -= healthModifier; }
+        else { setRemainingHealth(0.0); }
     }
 }
