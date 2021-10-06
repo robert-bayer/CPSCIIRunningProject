@@ -11,7 +11,7 @@
  *
  */
 
-public class VideoGameCharTwo {
+public class VideoGameChar {
     private String Name;
     private double MaximumHealth;
     private double RemainingHealth;
@@ -23,7 +23,7 @@ public class VideoGameCharTwo {
     /**
      * Empty Constructor
      */
-    public VideoGameCharTwo() {
+    public VideoGameChar() {
         Name = "";
         MaximumHealth = 0.0;
         RemainingHealth = 0.0;
@@ -37,7 +37,7 @@ public class VideoGameCharTwo {
     /**
      * Constructor with all variables
      */
-    public VideoGameCharTwo(String Name, double MaxHealth, double RemainingHealth, String Operator, double Modifier, int Iterations) {
+    public VideoGameChar(String Name, double MaxHealth, double RemainingHealth, String Operator, double Modifier, int Iterations) {
         this.Name = Name;
         MaximumHealth = MaxHealth;
         this.RemainingHealth = RemainingHealth;
