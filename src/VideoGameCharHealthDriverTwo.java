@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @version 0.1.8
  * @date 10/02/2021
  */
-public class VideoGameCharHealthDriverTwo {
+public class VideoGameCharHealthDriver {
 
 
     public static void main(String[] args) {
@@ -20,7 +20,7 @@ public class VideoGameCharHealthDriverTwo {
         //Creating of Scanner and Blank VideoGameChar Obj
         Scanner stdinScanner;
         stdinScanner = new Scanner(System.in);
-        VideoGameCharTwo NewCharacter = new VideoGameCharTwo();
+        VideoGameChar NewCharacter = new VideoGameChar();
 
         //Getting the Name
         System.out.print("Please input the name of the character: ");
