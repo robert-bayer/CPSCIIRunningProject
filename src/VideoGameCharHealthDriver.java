@@ -23,69 +23,58 @@ public class VideoGameCharHealthDriver {
         VideoGameChar NewCharacter = new VideoGameChar();
 
         //Getting the Name
-        System.out.print("Please input the name of the character: ");
+        System.out.print("Please enter the name of the character: ");
         NewCharacter.setName(stdinScanner.next());
 
-        //Getting the Max Health
-        System.out.print("Enter max health: ");
-        NewCharacter.setMaxHealth(stdinScanner.nextDouble());
-
-        while(NewCharacter.getMaxHealth() <= 0){
-            System.out.println("Youre a dumbass. Make it bigger than 0");
-            System.out.print("Gimme MH");
+        //Getting Max Health
+        do{
+            System.out.print("Enter " + NewCharacter.getName()+  "'s max health: ");
             NewCharacter.setMaxHealth(stdinScanner.nextDouble());
+            if(NewCharacter.getMaxHealth() <= 0.0){
+                System.out.println(NewCharacter.getName()+ "'s max health must be greater than 0.0.");
+            }
         }
+        while(NewCharacter.getMaxHealth() <= 0);
 
         //Getting the Remaining Health
-        System.out.print("Enter Remaining Health: ");
-        NewCharacter.setRemainingHealth(stdinScanner.nextDouble());
-
-        while(NewCharacter.getRemainingHealth() < 0 || NewCharacter.getRemainingHealth() > NewCharacter.getMaxHealth()) {
-            System.out.println("YOure a fucking idiot.  Must be more than 0 and less than max health");
-            System.out.print("Gimme RH: ");
+        do {
+            System.out.print("Enter " + NewCharacter.getName() + "'s remaining health: ");
             NewCharacter.setRemainingHealth(stdinScanner.nextDouble());
+            if (NewCharacter.getRemainingHealth() < 0 || NewCharacter.getRemainingHealth() > NewCharacter.getMaxHealth()) {
+                System.out.println(NewCharacter.getName() + "'s remaining health must be greater than 0.0 and less than max health (" + NewCharacter.getMaxHealth() + ").");
+            }
         }
+        while(NewCharacter.getRemainingHealth() < 0 || NewCharacter.getRemainingHealth() > NewCharacter.getMaxHealth());
 
         //Determining Add or Subtract
-        System.out.print("Do you want to add or stubract: ");
-        NewCharacter.setOperator(stdinScanner.next());
-
-        while(!NewCharacter.getOperator().equals("add") && !NewCharacter.getOperator().equals("sub")){
-            System.out.println("Youre dumb.  must be sub or add.");
-            System.out.print("Do you want to add or sub: ");
+        do {
+            System.out.print("Enter 'add' to increase " + NewCharacter.getName() + "'s health or 'sub' to decrease it: ");
             NewCharacter.setOperator(stdinScanner.next());
-        }
-
-        if(NewCharacter.getOperator().equals("add")){
-            System.out.print("How much you want to increase: ");
-            NewCharacter.setModifier(stdinScanner.nextDouble());
-            while(NewCharacter.getModifier() < 0 || NewCharacter.getModifier() > NewCharacter.getMaxHealth()){
-                System.out.println("Must be between 0 and max health.");
-                System.out.print("How much you want to increase: ");
-                NewCharacter.setModifier(stdinScanner.nextDouble());
+            if (!NewCharacter.getOperator().equals("add") && !NewCharacter.getOperator().equals("sub")) {
+                System.out.println("You did not enter either 'add' or 'sub'.");
             }
         }
-
-        else{
-            System.out.print("How much you want to decrease: ");
-            NewCharacter.setModifier(stdinScanner.nextDouble());
-            while(NewCharacter.getModifier() <= 0 || NewCharacter.getModifier() > NewCharacter.getMaxHealth()) {
-                System.out.println("Must be between 0 and max health.");
-                System.out.print("How much you want to decrease: ");
-                NewCharacter.setModifier(stdinScanner.nextDouble());
-            }
-        }
-
-        System.out.print("How many times do you want to iterate: ");
-        NewCharacter.setIterations(stdinScanner.nextInt());
-        while(NewCharacter.getIterations() < 1 || NewCharacter.getIterations() > 10){
-            System.out.println("Must be between 1 and 10.");
-            System.out.print("How many iterations would you like: ");
-            NewCharacter.setIterations(stdinScanner.nextInt());
-        }
-
+        while(!NewCharacter.getOperator().equals("add") && !NewCharacter.getOperator().equals("sub"));
 
         if(NewCharacter.getOperator().equals("add")){
+            do {
+                System.out.print("Enter the amount to increase " + NewCharacter.getName() + "'s health: ");
+                NewCharacter.setModifier(stdinScanner.nextDouble());
+                if (NewCharacter.getModifier() < 0 || NewCharacter.getModifier() > NewCharacter.getMaxHealth()) {
+                    System.out.println("The amount must be greater than 0.0 but less than " + NewCharacter.getName() + "'s original Health (" + NewCharacter.getMaxHealth() + ").");
+                }
+            }
+            while(NewCharacter.getModifier() < 0 || NewCharacter.getModifier() > NewCharacter.getMaxHealth());
+
+            do {
+                System.out.print("Please enter how many iterations to increase " + NewCharacter.getName() + "'s health (1 - 10): ");
+                NewCharacter.setIterations(stdinScanner.nextInt());
+                if (NewCharacter.getIterations() < 1 || NewCharacter.getIterations() > 10) {
+                    System.out.println("Only 1 through 10 are acceptable iteration inputs.");
+                }
+            }
+            while(NewCharacter.getIterations() < 1 || NewCharacter.getIterations() > 10);
+
             for(int i = 0; i < NewCharacter.getIterations(); i++){
                 System.out.println("Iteration " + (i+1));
                 NewCharacter.increaseHealth(NewCharacter.getModifier());
@@ -94,8 +83,26 @@ public class VideoGameCharHealthDriver {
         }
 
         else{
-            for(int i = 0; i < NewCharacter.getIterations(); i++){
-                System.out.println("Iteration " + (i+1));
+            do{
+                System.out.print("Enter the amount to decrease " + NewCharacter.getName() + "'s health: ");
+                NewCharacter.setModifier(stdinScanner.nextDouble());
+                if(NewCharacter.getModifier() <= 0 || NewCharacter.getModifier() > NewCharacter.getMaxHealth()){
+                    System.out.println("The amount must be greater than 0.0 but less than " + NewCharacter.getName() + "'s original Health (" + NewCharacter.getMaxHealth() + ").");
+                }
+            }
+            while(NewCharacter.getModifier() <= 0 || NewCharacter.getModifier() > NewCharacter.getMaxHealth());
+
+            do {
+                System.out.print("Please enter how many iterations to decrease " + NewCharacter.getName() + "'s health (1 - 10): ");
+                NewCharacter.setIterations(stdinScanner.nextInt());
+                if (NewCharacter.getIterations() < 1 || NewCharacter.getIterations() > 10) {
+                    System.out.println("Only 1 through 10 are acceptable iteration inputs.");
+                }
+            }
+            while(NewCharacter.getIterations() < 1 || NewCharacter.getIterations() > 10);
+
+            for(int i = 0; i < NewCharacter.getIterations(); i++) {
+                System.out.println("Iteration " + (i + 1));
                 NewCharacter.decreaseHealth(NewCharacter.getModifier());
                 System.out.println(NewCharacter.getHealthPhrase());
             }
