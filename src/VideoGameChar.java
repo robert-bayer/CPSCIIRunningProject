@@ -10,8 +10,9 @@
  * @date 09/11/2021
  *
  */
+import java.util.ArrayList;
 
-public class VideoGameChar {
+public class VideoGameChar{
     private String Name;
     private double MaximumHealth;
     private double RemainingHealth;
@@ -31,7 +32,6 @@ public class VideoGameChar {
         Operator = "";
         Modifier = 0.0;
         Iterations = 0;
-
     }
 
     /**
