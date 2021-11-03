@@ -1,0 +1,22 @@
+Points      Item
+----------  --------------------------------------------------------------
+15 / 15  Style
+            + Code is indented correctly
+            + Methods should be no longer than 1 page
+            + Documentation: (written for another software developer)
+              * All source code files include Javadoc header block with description, @author, @version, etc.
+              * Javadoc (with block tags, for example @param, @return) before each method
+              * All non-trivial variables are commented
+              * Comments included before major portions of code
+30 / 30  ArrayList (creation and use)
+10 / 10  Inheritance hierarchy
+15 / 15  Classes for human, enemy and enemy boss characters that reuse inherited members appropriately
+28 / 28  Input / Output Tests
+2/  2  Completed rubric (estimates for each line including hours spent)
+
+100 /100  Total
+
+
+12  Approximate number of hours spent
+
+I, Robert Bayer, affirm that the code that I submitted is my own work and that I did not receive help that was not authorized by the instructor.
